@@ -1,0 +1,79 @@
+
+	<div class="container-fluid dash">
+	
+		<div class="loader_container" ng-show="loading">
+			<div class="loader" ng-show="loading"></div>
+		</div>
+
+		<div class="col-sm-offset-0 col-sm-12">
+		
+			<div class="panel panel-default single-project-details">
+			
+				<div class="panel-heading">
+					<a href="/#/projects/{{ project.id }}">{{ project.title }}</a> 
+				</div>
+				
+				<div class="panel-body">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<input ng-model="newplot.title" type="text" id="newpptitle" name="title" autocomplete="off"></input>
+						</div>
+						<div class="panel-body">
+							<textarea id="newppdesc" name="description" ng-model="newplot.description">New Plotpoint Description</textarea> 
+						</div>
+						<div class="panel-footer">
+							<a href ng-click="addPlotpoint(newplot)">Add Plotpoint</a>
+						</div>
+					</div>
+
+					<ul ui-sortable="sortableOptions" ng-model="plotpoints" class="plotpoints_list">
+						<li ng-repeat="p in plotpoints track by $index">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<input ng-model="p.title" type="text" id="pptitle" name="title" autocomplete="off"></input>
+								</div>
+								<div class="panel-body">
+									<textarea id="ppdesc" name="description" ng-model="p.description"></textarea>
+								</div>
+								<div class="panel-footer" style="overflow: auto;">
+									<div class="pull-left"><a href ng-click="updatePlotpoint(p)">Update</a></div>
+									<div class="pull-right"><a href ng-click="deletePlotpoint(p)">Delete</a></div>
+								</div>
+							</div>
+						</li>
+					</ul>							
+				
+				</div>
+			
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<script>
+	$(document).ready(function(){
+		$("#newpptitle").on("click", function(){
+			console.log($(this).val());
+			if($(this).val() == "New Plotpoint Title") {
+				$(this).val("");
+			}
+		});
+		$("#newppdesc").on("click", function(){
+			if($(this).val() == "New Plotpoint Description") {
+				$(this).val("");
+			}
+		});
+		$("#newpptitle").on("focusout", function() {
+			if ($(this).val() == "") {
+				$(this).val("New Plotpoint Title");
+			}
+		});
+		$("#newppdesc").on("focusout", function() {
+			if ($(this).val() == "") {
+				$(this).val("New Plotpoint Description");
+			}
+		});
+	});
+	</script>

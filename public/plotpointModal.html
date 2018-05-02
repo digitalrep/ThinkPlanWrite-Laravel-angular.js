@@ -1,0 +1,24 @@
+
+
+
+			<div class="modal-header">
+				<h3>Add New Plotpoint</h3>
+			</div>
+			<form name="newPlot" class="newPlot">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="ptitle">Plotpoint Title</label>
+						<input ng-model="newplotpoint.title" type="text" id="ptitle" name="title" autocomplete="off" aria-label="Plotpoint Title" required class="form-control"></input>
+						<div class="alert alert-danger" ng-show="newPlot.title.$touched && newPlot.title.$invalid" class="error">Title is required</div>
+					</div>
+					<div class="form-group">
+						<label for="pdesc">Plotpoint Description</label>
+						<textarea id="pdesc" name="description" ng-model="newplotpoint.description" required class="form-control">New Plotpoint Description</textarea>
+						<div class="alert alert-danger" ng-show="newPlot.description.$touched && newPlot.description.$invalid" class="error">Description is required</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-info" type="submit" ng-disabled="newPlot.$invalid" ng-click="ok()">Add Plotpoint</button>
+					<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+				</div>
+			</form>

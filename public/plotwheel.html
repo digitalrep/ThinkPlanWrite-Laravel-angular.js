@@ -1,0 +1,261 @@
+	
+	<div class="row details">
+		<div class="details">
+			<h1>Mystery / Thriller Plot Wheel</h2>
+			<p>Has your plot come to a dead stop? Give the wheel a spin and take some advice to advance your plot:</p>
+			<div id="info"></div>
+			<div id="canvasContainer">
+				<canvas id="mysteryCanvas" width="1000" height="900">
+					Your browser doesn't support the HTML5 canvas tag
+				</canvas>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+			
+		(function() {
+			
+			this.Plotwheel = function(userDefinedSettings) {
+					
+				var startPos = 0.15;
+					
+				var defaultSettings = {
+					canvasId: 'canvas',
+					radius: 400,
+					fontSize: "14px",
+					fontAlign: "left",
+					pickColor: "#696969",
+					arcColors: ["#bebebe", "#d3d3d3"],
+					textColors: ["#000"],
+					quotes: [
+						"Option One", 
+						"Option Two",
+						"Option Three",
+						"Option Four"
+					],
+				}
+					
+				if(userDefinedSettings && typeof userDefinedSettings === "object") {
+					for(var key in defaultSettings) {
+						if(userDefinedSettings.hasOwnProperty(key)) {
+							defaultSettings[key] = userDefinedSettings[key];
+						}
+					}
+				}
+					
+				var canvas = document.getElementById(defaultSettings.canvasId);
+				var ctx = canvas.getContext("2d");
+				var cx = canvas.width / 2;
+				var cy = canvas.height / 2;
+				
+				function drawSegment(colour, fontColor, start, end, text) {
+					ctx.fillStyle = colour;
+					ctx.beginPath();
+					ctx.moveTo(cx, cy);
+					ctx.arc(cx, cy, defaultSettings.radius, start * Math.PI, end * Math.PI);
+					ctx.closePath();
+					ctx.fill();
+					ctx.save();
+					
+					//renderText(text, end, start, fontColor);
+					drawText(text, end, start, 4, fontColor);
+					
+					ctx.restore();
+				}
+				
+				function renderText(text, end, start, fontColor) {
+					// 400 - 60 = 340
+					var maxLineWidth = defaultSettings.radius - 60;
+					var letterLength = defaultSettings.fontSize.split("px");
+					var letters = text.length;
+					if((letters * (letterLength[0] / 2.2)) > maxLineWidth) {
+						words = text.split(" ");
+						lastWord = words[words.length-1];
+						rest = text.slice(0, text.length - lastWord.length);
+						letters = rest.length;
+						if((letters * (letterLength[0] / 2.2)) < maxLineWidth) {
+							drawMultiText(rest, lastWord, end, start, fontColor);
+						}
+					} else {
+						drawText(text, end, start, 4, fontColor);
+					}
+				}
+				
+				function drawText(text, end, start, line, fontColor) {
+					ctx.translate(cx, cy);
+					var angle = (start + (end - start) / 2) * Math.PI;
+					ctx.rotate(angle);
+					
+					ctx.textAlign = defaultSettings.align;
+					ctx.fillStyle = fontColor;
+					ctx.font = defaultSettings.fontSize + " sans-serif";
+					
+					// first int is distance from centre
+					// second int is related somehow to font height
+					ctx.fillText(text, 60, line);				
+				}
+				
+				function drawMultiText(text, lastWord, end, start, fontColor) {
+					ctx.translate(cx, cy);
+					var angle = (start + (end - start) / 3.3333) * Math.PI;
+					ctx.rotate(angle);
+					
+					ctx.textAlign = defaultSettings.align;
+					ctx.fillStyle = fontColor;
+					ctx.font = defaultSettings.fontSize + " sans-serif";
+					
+					// first int is distance from centre
+					// second int is related somehow to font height
+					ctx.fillText(text, 60, 2);	
+					
+					//ctx.translate(cx, cy);
+					var angle = (start + (end - start) / 3.3333) * Math.PI;
+					ctx.rotate(angle);
+					
+					ctx.fillText(lastWord, 60, 8);					
+				}
+				
+				function printWheel(distance) {
+					var currentPos = startPos + distance;
+					var numQuotes = defaultSettings.quotes.length;
+					var posInc = 2 / numQuotes;
+					var arcColor = 0;
+					var textColor = 0;
+					var selected = "";
+					
+					for(var i=0; i<numQuotes; i++) {
+						drawSegment(defaultSettings.arcColors[arcColor], defaultSettings.textColors[textColor], currentPos, currentPos + posInc, defaultSettings.quotes[i]);
+						if(arcColor < defaultSettings.arcColors.length-1) {
+							arcColor++;
+						} else {
+							arcColor = 0;
+						}
+						if(textColor < defaultSettings.textColors.length-1) {
+							textColor++;
+						} else {
+							textColor = 0;
+						}
+						currentPos += posInc;
+					}
+					
+					startPos = currentPos;
+					
+					// Circle Outline
+					ctx.beginPath();
+					ctx.arc(cx, cy, defaultSettings.radius, 0, 2 * Math.PI);
+					ctx.stroke();
+					
+					// Picker
+					ctx.fillStyle = defaultSettings.pickColor;
+					ctx.beginPath();
+					ctx.moveTo(cx, cy - defaultSettings.radius + 50);
+					ctx.arc(cx, cy - defaultSettings.radius + 50, 80, 1.35 * Math.PI, 1.65 * Math.PI);
+					ctx.closePath();
+					ctx.fill();
+					ctx.save();	
+				}
+				
+				printWheel(0);
+				
+				this.spin = function() {
+					
+					var rand = 2000 * Math.random();
+					var amt = 1 / 1000;
+					
+					function spin(amt) {
+						printWheel(amt);
+					}
+					
+					//                                            how many draws / how fast 
+					//											  finer = higher / slower = higher number
+					var spinning = setInterval(function() { spin(amt += 1 / 200) }, 50);
+					setInterval(function() { clearInterval(spinning) }, rand);
+					
+				}
+								
+			}
+			
+		})();
+		
+		// Set up Mystery / Thriller Plot Wheel
+		var mysterySettings = {
+			canvasId: 'mysteryCanvas',
+			fontSize: '16px',
+			textColors: ["#922B21", "#76448A", "#1F618D", "#117A65"],
+			quotes: [
+				"Hero receives an anonymous threatening letter", 
+				"Hero follows up on a lead",
+			//	"Suspect establishes false alibi before the murder",
+				"Hero stumbles upon a clue at the scene",
+				"Hero is told by police to stop investigating",
+				"Hero questions a witness / suspect",
+				"Hero receives a summons to meet a defector",
+				"Hero is wanted / chased by police",
+				"Hero is gifted with a very important object",
+				"Hero overhears incriminating conversation",
+				"Hero is captured by antagonist",
+				"Hero finds secret message of dead victim",
+				"Hero catches someone trusted in a lie",
+				"Hero interrupts burglary / evades attack",
+				"Hero tests a theory out loud to sidekick",
+				"Hero discovers a suspect's deep, dark secret",
+				"Hero is seduced by a suspect"
+			],
+		};
+		
+		var mysteryPlotwheel = new Plotwheel(mysterySettings);
+		
+		document.getElementById("mysteryCanvas").addEventListener('mouseup', function() {
+			mysteryPlotwheel.spin();
+		});
+		/*
+		$("#mysteryCanvas").outerHeight($(#canvasContainer).height());
+		$(window).on("resize", function() {
+			$("#mysteryCanvas").outerHeight($(#canvasContainer).height());
+		});
+		
+		// Set up Romance Plot Wheel
+		/*
+		var romanceSettings = {
+			canvasId: 'romanceCanvas',
+			textColors: ["#cd5c5c", "#f08080", "#fa8072", "#e9967a", "#ffa07a"],
+			quotes: [
+				"Heroine overhears Hero talking about her unfavourably",
+				"Heroine finds herself in danger and Hero comes to the rescue",
+				"Hero finds himself in danger and the Heroine saves him",
+				"Both discover that despite their differences they share values",
+				"Hero gets jealous when Heroine courts attention from someone else",
+				"Heroine gets jealous of Hero's many admirers",
+				"Hero and Heroine are forced to work together in an odd situation",
+				"Hero finds out Heroine's secret and decides not to pursue her",
+				"Hero and Heroine kiss first time",
+				"Hero and Heroine meet as strangers and dislike each other"
+			],
+		};
+		
+		var romancePlotwheel = new Plotwheel(romanceSettings);
+		
+		document.getElementById("romanceCanvas").addEventListener('mouseup', function() {
+			romancePlotwheel.spin();
+		});
+		
+		// Set up dropdown canvas changer
+		document.getElementById("genre").addEventListener('change', function() {
+			if(document.getElementById("genre").value === "mystery") {
+				document.getElementById("mysteryCanvas").style.display = "inline-block";
+				document.getElementById("romanceCanvas").style.display = "none";
+				//document.getElementById("literatureCanvas")
+			} else if(document.getElementById("genre").value === "romance") {
+				document.getElementById("mysteryCanvas").style.display = "none";
+				document.getElementById("romanceCanvas").style.display = "inline-block";
+				//document.getElementById("literatureCanvas")
+			} else {
+				//document.getElementById("mysteryCanvas")
+				//document.getElementById("romanceCanvas")
+				//document.getElementById("literatureCanvas")
+			}
+		});
+		*/
+			
+	</script>

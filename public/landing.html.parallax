@@ -1,0 +1,78 @@
+<div full-page>
+
+	<div class="section centred">
+		<img class="main-img" src="images/typewriter.png" alt="ThinkPlanWrite typewriter">
+		<h1>Tools to help you succeed!</h1> 
+		<p><a class="btn btn-lg btn-info" style="font-size: 14px;" href="/#/login">Login to view your writing stats</a></p>
+	</div>
+		
+	<div class="row tpw-icons section">
+		<div class="info col-md-4">
+			<img src="images/think.png" alt="think">
+			<h2>Think</h2>
+		</div>
+		<div class="info col-md-4">
+			<img src="images/plan.png" alt="plan">
+			<h2>Plan</h2>
+		</div>
+		<div class="info col-md-4">
+			<img src="images/write.png" alt="write">
+			<h2>Write</h2>
+		</div>
+	</div>
+	
+	<div class="row phones section">
+		<h2>Log your daily wordcounts </h2>
+		<br/>
+		<div class="imgs">
+			<slick slides-to-show=1 touch-move="true" slides-to-scroll=1 responsive="breakpoints" class="slider single-item">
+				<div><img src="images/iphoneblack1.png" alt="iPhone Screen"></div>
+				<div><img src="images/iphoneblack2.png" alt="Another iPhone Screen"></div>
+				<div><img src="images/iphoneblack3.png" alt="Another iPhone Screen"></div>
+			</slick>
+		</div>
+	</div>
+	
+	<div class="row details section">
+		<div class="details">
+			<h2>Achieve your Writing Goals!</h2>
+			<p>&nbsp;</p>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h3>Log your Wordcounts</h3>
+					<p>Manually update your daily wordcount logs and view historical stats so you can track your progress</p>
+					<h3>Other Tools!</h3>
+					<p>Stuck on plot? Try one the <a href="#">plotwheel</a>.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="section footer">
+		<div class="col-md-12">
+			<span class="footer-brand">ThinkPlanWrite</span>
+		</div>
+		<div class="col-md-12">
+			<ul>
+				<li>Contact: digitalrep@live.com.au</li>
+				<li><p></p><p></p></li>
+				<li><a class="home" href="/#/login">Login</a></li>
+				<li><a class="home" href="/#/register">Register</a></li>
+				<li><p></p><p></p></li>
+				<li><a class="home" href="/#/plotwheel">Plotwheel</a></li>
+				<li><p></p><p></p></li>		
+				<li><a class="home" href="/#/privacy">Privacy Policy</a></li>
+				<li><a class="home" href="/#/terms">Terms of Use</a></li>
+				<li><p></p><p></p></li>
+			</ul>
+		</div>
+		<div class="col-md-12 footer-last-section">
+			<center>Copyright &copy; DigitalRep - All Rights Reserved</center>
+		</div>
+	</div>
+	
+	<div id="back-to-top">
+		<a ng-click="scrollTo('top')" href="#">TOP</a>
+	</div>
+	
+</div>

@@ -1,0 +1,32 @@
+
+
+	<div class="row">
+		<div class="col-sm-12 page">
+		
+				<div class="col-sm-4 col-sm-offset-4">
+			
+					<h1>Register</h1>
+					
+					<div class="alert alert-danger" role="alert" ng-show="showError2">
+						<span class="sr-only">Error:</span>
+						That email address is already in use.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showError">
+						<span class="sr-only">Error:</span>
+						Please make sure your password is at least six characters long.
+					</div>
+					<div class="alert alert-info" role="alert" ng-show="done">
+						<span class="sr-only">Success:</span>
+						A confirmation email was sent to your email address. Please click the link in the confirmation email to confirm your email address.
+					</div>
+					
+					<p><span class="sr-only"><label for="username">Username</label></span><input class="form-control" type="text" class="txt" placeholder="Name" ng-model="user.name" name="username" id="username"></p>
+					<p><span class="sr-only"><label for="email">Email</label></span><input class="form-control" type="email" class="txt" placeholder="Email" ng-model="user.email" name="email" id="email"></p>
+					<p><span class="sr-only"><label for="password">Password</label></span><input class="form-control" type="password" class="txt" placeholder="Password" ng-model="user.password" name="password" id="password"></p>
+				
+					<p><input type="submit" id="_submit" value="Register" class="btn-info" ng-click="register(user)" /></p>
+					
+				</div>
+				
+		</div>
+	</div>

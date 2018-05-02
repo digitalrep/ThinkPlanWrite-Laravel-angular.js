@@ -1,0 +1,43 @@
+
+
+
+		<div class="modal-header">
+			<h3>Add New Character</h3>
+		</div>
+		<form name="newChar" class="newPlot">
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="ptitle">Character Name</label>
+					<input ng-model="newcharacter.name" type="text" id="ptitle" name="name" autocomplete="off" aria-label="Character Name" required class="form-control"></input>
+					<div class="alert alert-danger" ng-show="newChar.name.$touched && newChar.name.$invalid" class="error">Name is required</div>
+				</div>
+				<div class="form-group" style="overflow: auto;">
+					<div class="col-sm-6 col-lg-6 char_gender">
+						<label for="newchargender">Gender</label>
+						<select id="newchargender" class="form-control" name="gender" ng-model="newcharacter.gender">
+							<option value="Female" selected>Female</option>
+							<option value="Male">Male</option>
+							<option value="Transgender">Transgender</option>
+							<option value="Other">Other</option>
+						</select>
+						<div class="alert alert-danger" ng-show="newChar.gender.$touched && newChar.gender.$invalid" class="error">Gender is required</div>
+					</div>
+					<div class="col-sm-6 col-lg-6 char_age">
+						<label for="newcharage">Age</label>
+						<input id="newcharage" class="form-control" name="age" type="number" min="1" step="1" ng-model="newcharacter.age" placeholder="25" />
+						<div class="alert alert-danger" ng-show="newChar.age.$touched && newChar.age.$invalid" class="error">Age is required</div>
+					</div>	
+				</div>
+				<div class="form-group">
+					<label for="pdesc">Character Bio</label>
+					<textarea id="pdesc" name="bio" ng-model="newcharacter.bio" required class="form-control">New Character Bio</textarea> 
+					<div class="alert alert-danger" ng-show="newChar.bio.$touched && newChar.bio.$invalid" class="error">Bio is required</div>
+				</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info" type="submit" ng-click="ok()" ng-disabled="newChar.$invalid">Add Character</button>
+				<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+			</div>
+		</form>
+		

@@ -1,0 +1,107 @@
+
+
+	<div class="container-fluid dash">
+	
+		<div class="loader_container" ng-show="loading">
+			<div class="loader" ng-show="loading"></div>
+		</div>
+
+		<div class="col-sm-offset-0 col-sm-12">
+		
+		
+			<div class="panel panel-default single-project-details">
+			
+				<div class="panel-heading">
+					<a href="/#/projects/{{ project.id }}">{{ project.title }}</a> Characters
+				</div>
+					
+				<div class="panel-body">
+				
+					<div class="plot panel panel-default col-sm-4 col-lg-3 col-xs-12 plotpoint_object">
+				
+						<div class="panel-heading">
+							<input ng-model="newchar.name" type="text" id="newchartitle" name="title" class="form-control" autocomplete="off"></input>
+							<div class="row">
+								<div class="col-sm-6 col-lg-6 char_gender">
+									<select id="newchargender" class="form-control" name="gender" ng-model="newchar.gender">
+										<option value="Female" selected>Female</option>
+										<option value="Male">Male</option>
+										<option value="Transgender">Transgender</option>
+										<option value="Other">Other</option>
+									</select>
+								</div>
+								<div class="col-sm-6 col-lg-6 char_age">
+									<input id="newcharage" class="form-control" name="age" type="number" min="1" step="1" ng-model="newchar.age" placeholder="20" />
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<textarea id="newchardesc" name="description" ng-model="newchar.bio">New Character Bio</textarea> 
+						</div>
+						<div class="panel-footer" style="overflow: auto;">
+							<div class="btn-group pull-right"><a href ng-click="addCharacter(newchar)">Add Character</a></div>
+						</div>
+						
+					</div>	
+
+					<div ng-repeat="char in characters track by $index">
+					
+						<div class="plot panel panel-default col-sm-4 col-lg-3 col-xs-12 plotpoint_object">
+							<div class="panel-heading exchar">
+								<input  ng-model="char.name" type="text" id="chartitle" name="title" autocomplete="off" />
+								<div class="row">
+								<div class="col-sm-6 char_gender">
+									<select id="chargender" class="form-control" name="gender" ng-options="g for g in genders" ng-model="char.gender">
+									</select>
+								</div>
+								<div class="col-sm-6 char_age">
+									<input id="charage" class="form-control" name="age" type="number" min="1" step="1" ng-model="char.age" />
+								</div>
+							</div>
+							</div>
+							<div class="panel-body">
+								<textarea id="newchardesc" name="description" ng-model="char.bio">
+									{{ char.bio }}
+								</textarea>
+							</div>
+							<div class="panel-footer" style="overflow: auto;">
+								<div class="btn-group pull-left"><a href ng-click="updateCharacter(char)">Update</a></div>
+								<div class="btn-group pull-right"><a href ng-click="deleteCharacter(char)">Delete</a></div>
+							</div>
+						</div>
+						
+					</div>			
+				
+				</div>
+
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<script>
+	$(document).ready(function(){
+		$("#newchartitle").on("click", function(){
+			console.log($(this).val());
+			if($(this).val() == "New Character Name") {
+				$(this).val("");
+			}
+		});
+		$("#newchardesc").on("click", function(){
+			if($(this).val() == "New Character Bio") {
+				$(this).val("");
+			}
+		});
+		$("#newchartitle").on("focusout", function() {
+			if ($(this).val() == "") {
+				$(this).val("New Character Name");
+			}
+		});
+		$("#newchardesc").on("focusout", function() {
+			if ($(this).val() == "") {
+				$(this).val("New Character Bio");
+			}
+		});
+	});
+	</script>

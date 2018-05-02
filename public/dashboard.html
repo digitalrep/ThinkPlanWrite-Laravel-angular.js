@@ -1,0 +1,295 @@
+
+	<div class="container-fluid dash">
+	
+		<div class="loader_container" ng-show="loading">
+			<div class="loader" ng-show="loading" alt="page still loading"></div>
+		</div>
+		
+		<!-- Wordcount Statistics -->
+		
+		<div class="col-lg-3 col-sm-6 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-pink">
+				<div class="panel-body">
+					<img src="images/total.png" alt="total bar graph">
+					<span class="stat-number">{{ total }}</span>
+					<h5>Total Words Written</h5> 
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-sm-6 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-blue">
+				<div class="panel-body">
+					<img src="images/average.png" alt="average bar graph">
+					<span class="stat-number">{{ average_daily }}</span>
+					<h5>Average Words Per Day</h5>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-sm-6 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-yellow">
+				<div class="panel-body">
+					<img src="images/streak.png" alt="streak calendar">
+					<span class="stat-number">{{ longest_streak }}</span>
+					<h5>Longest Streak of Consecutive Days</h5>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-sm-6 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-orange">
+				<div class="panel-body">
+					<img src="images/drought.png" alt="drought calendar">
+					<span class="stat-number">{{ longest_drought }}</span>
+					<h5>Longest Drought of Consecutive Days</h5>
+				</div>
+			</div>
+		</div>
+			
+		<!-- Projects -->
+
+		<div class="col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12" id="project_table">
+			<div class="panel panel-default">
+				<table class="table table-striped">
+					<tr class="projects">
+						<th>Title</th>
+						<th class="optional">Added</th>
+						<th class="optional">Updated</th>
+						<th>Total Wordcount</th>
+						<th>Delete</th>
+					</tr>
+					<tr ng-repeat="project in projects">
+						<td><a href="/#/projects/{{ project.id }}">{{ project.title }}</a></td>
+						<td class="optional">{{ project.created_at | myDateFormat }}</td>
+						<td class="optional">{{ project.updated_at | myDateFormat }}</td>
+						<td>{{ project.wordcount }}</td>
+						<td><a href="" class="research-icon" ng-click="deleteProject(project)">Delete</a></td>
+					</tr>
+				</table>
+				<div class="panel-footer border-bottom">
+					<div style="position: relative;">
+						<form class="new-proj" name="newProj" novalidate>
+							<label for="newTitle">Project Title</label>
+							<span class="project-title"><input class="form-control" type="text" name="title" autocomplete="off" ng-model="proj.title" name="newTitle" id="newTitle" required></span>
+							<button type="submit" class="btn btn-info update-project" ng-click="addProject(proj)" ng-disabled="newProj.title.$invalid">New Project</button>
+							<div class="error" ng-show="newProj.title.$touched && newProj.title.$invalid">Title is required</div>
+						</form>
+					</div>
+				</div>	
+			</div>		
+		</div>
+		
+		<div class="col-lg-offset-0 col-lg-3 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12 charts">
+		
+			<!-- Project Wordcounts Bar Chart --> 
+
+			<div class="col-lg-offset-0 col-lg-12 col-sm-offset-0 col-sm-12 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Total Number of Words Written by Project
+					</div>
+					<div class="panel-body my-chart">
+						<div my-chart></div>
+					</div>
+				</div>	
+			</div>
+			
+		</div>
+		
+		<!-- Logs -->
+		
+		<div class="col-lg-offset-0 col-lg-6 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+			
+			<!-- Logs Display Calendar Chart for smaller (mobile) devices only -->
+			
+			<div class="panel panel-default mobile">		
+				<div class="panel-heading">
+					Writing Logs - This Month
+				</div>
+				<div class="panel-body">
+					<div class="month">
+						<ul>
+							<li class="prev"><a ng-click="changeCalendarLog(1)" href>&#10094;</a></li>
+							<li class="next"><a ng-click="changeCalendarLog(0)" href>&#10095;</a></li>
+							<li>
+								<span ng-bind="calendarObjects[calendarLogCurrent].month">{{ calendarObjects[calendarLogCurrent].month }}</span><br>
+								<span>{{ calendarObjects[calendarLogCurrent].year }}</span>
+							</li>
+						</ul>
+					</div>
+					<table class="log-table" cellpadding=10>
+						<tr>
+							<th ng-repeat="day in calendarObjects[calendarLogCurrent].daysOfWeek">{{ day }}</th>
+						</tr>
+						<tr>
+							<td class="log-calendar" ng-repeat="log in calendarObjects[calendarLogCurrent].weeks[0]">{{ log.wordcount }}</td>
+						</tr>
+						<tr>
+							<td class="log-calendar" ng-repeat="log in calendarObjects[calendarLogCurrent].weeks[1]">{{ log.wordcount }}</td>
+						</tr>
+						<tr>
+							<td class="log-calendar" ng-repeat="log in calendarObjects[calendarLogCurrent].weeks[2]">{{ log.wordcount }}</td>
+						</tr>
+						<tr>
+							<td class="log-calendar" ng-repeat="log in calendarObjects[calendarLogCurrent].weeks[3]">{{ log.wordcount }}</td>
+						</tr>	
+						<tr>
+							<td class="log-calendar" ng-repeat="log in calendarObjects[calendarLogCurrent].weeks[4]">{{ log.wordcount }}</td>
+						</tr>						
+					</table>
+				</div>
+			</div>
+			
+			<!-- Logs Display Line Chart for larger screens -->
+		
+			<div class="panel panel-default optional">
+				<div class="btn-group pull-right">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle btn-sm create" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							Select Months
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+							<li class="words_selector2" ng-repeat-start="log in logyearmonthslabels" ng-if="$last">
+								<input class="box" type="checkbox" ng-click="changeLogs(log.year, log.month)" checked>
+									{{ log.month }} - {{ log.year }} 
+								</input>
+							</li>
+							<li class="words_selector2" ng-repeat-end="log in logyearmonthslabels" ng-if="!$last">
+								<input class="box" type="checkbox" ng-click="changeLogs(log.year, log.month)">
+									{{ log.month }} - {{ log.year }} 
+								</input>
+							</li>
+						</ul>
+					</div>				
+				</div>
+				<div class="panel-heading">
+					Writing Logs
+				</div>
+				<div class="panel-body">
+					<canvas 
+						id="line" 
+						class="chart chart-line" 
+						chart-data="line.data" 
+						chart-series="line.series"
+						chart-labels="line.labels"
+						chart-colours="line.colors"
+						chart-options="line.options" 
+						chart-series="line.series">
+					</canvas>
+				</div>
+			</div>
+			
+			<!-- monthly breakdown -->
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Monthly Breakdown
+				</div>
+				<div class="panel-body">
+					<div google-chart chart="stackedChartObject"></div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- Actual Writing Days Pie Chart --> 
+
+		<div class="col-lg-offset-0 col-lg-3 col-sm-offset-0 col-sm-12 col-xs-12">			
+			<div class="panel panel-default" id="writing-days">
+				<div class="panel-heading">
+					Number of Actual Writing Days
+				</div>
+				<div class="panel-body">
+					<div google-chart chart="chartObject"></div>
+				</div>
+			</div>	
+		</div>
+		
+		<!-- Add Log -->
+		
+		<div class="col-lg-offset-0 col-lg-3 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Add Writing Log
+				</div>
+				<div class="panel-body">
+					<form class="new-log" name="newLog" novalidate>
+						<label for="logWordcount">Wordcount</label>
+						<input class="form-control" type="number" required autocomplete="off" ng-model="log.wordcount" name="logWordcount" id="logWordcount">
+						<div class="alert alert-danger" ng-show="newLog.logWordcount.$touched && newLog.logWordcount.$invalid" class="error">Wordcount is required</div>
+						<label for="logDate">Date</label>
+						<input id="log-date" class="form-control mydatepicker" aria-label="Date" type="text" ng-model="log.date" ng-change="" name="logDate" id="logDate" required ng-blur="dirtify()">
+						<div id="dateError" class="alert alert-danger" class="error" style="display: none;">Date is required</div>						
+						<label for="projectId">Project</label>
+						<select required class="form-control" id="projectId" name="projectId" ng-model="log.projectId"
+							ng-options="proj.id as proj.title for proj in projects" 
+							ng-change="">
+							<option value="" selected>Select Project</option>
+						</select>
+						<div class="alert alert-danger" ng-show="newLog.projectId.$touched && newLog.projectId.$invalid" class="error">Project is required</div>
+						<br/>
+						<button type="submit" id="logSubmit" class="btn btn-info" ng-click="addLog(log)" ng-disabled="newLog.$invalid">Add Log</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Quotes -->
+		
+		<div class="col-lg-offset-0 col-lg-3 col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Quote
+				</div>
+				<div class="panel-body">
+					<center>
+						<p><strong>{{ quote.author }}</strong></p>
+						<p>had this to say regarding</p>
+						<p><strong>{{ quote.regarding}}</strong></p>
+						<p><i>{{ quote.quote }}</i></p>
+					</center>
+				</div>
+			</div>
+		</div>
+			
+	</div>
+	
+	<script>
+	$(function() {
+		$.datepicker.setDefaults(
+			$.extend(
+				{'dateFormat' : 'dd-mm-yy'},
+				$.datepicker.regional['au']
+			)
+		);
+		$(".mydatepicker").each(function() {
+			$(this).datepicker({
+				onSelect: function(date) {
+					if($("#log-date").val() != "") {
+						$("#dateError").css("display", "none");
+					}
+					$("#log-date").trigger('change');
+				}
+			});
+		});
+		$("#log-date").on("blur", function() {
+			if($("#log-date").val() == "") {
+				$("#dateError").css("display", "block");
+			}
+			$("#log-date").trigger('change');
+		});
+
+		var shown = false;
+		$("#addnewexpensebutton").click(function() {
+			console.log("click");
+			if(!shown) {
+				$("#addnewexpense").show();
+				shown = true;
+			} else {
+				$("#addnewexpense").hide();
+				shown = false;
+			}
+		});
+	});
+	</script>
+	
+	

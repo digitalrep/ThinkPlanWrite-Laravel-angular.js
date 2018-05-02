@@ -1,0 +1,41 @@
+
+	<div class="container-fluid dash">
+	
+		<div class="loader_container" ng-show="loading">
+			<div class="loader" ng-show="loading" alt="page still loading"></div>
+		</div>
+	
+		<!-- Writing -->
+		
+		<div class="col-sm-offset-0 col-sm-12">
+			
+			<div class="panel panel-default single-writing-details">
+			
+				<div class="panel-heading border-top">
+					<a style="font-size: 16px;" href="/#/projects/{{ project_id }}">{{ project_name }}</a>: 
+					<input ng-model="writing.title" type="text" id="new_w_title" name="title" autocomplete="off"></input>
+					<div class="pull-right">
+					<button class="btn btn-info" ng-click="updateWriting(writing)">Save Writing</button>
+					</div>
+				</div>
+				
+				<table class="table table-striped">
+					<!-- four states: unedited, edited, saving... , writing saved -->
+					<center>
+						<span style="font-size: 11px;">{{ wordcount }} words</span>
+						<span style="font-size: 11px;" ng-bind="saveStatus">
+					</center>
+				</table>
+				
+				<div class="panel-body">
+					<div id="chapters_details" class="default-skin">
+						<span class="sr-only"><label for="writingTextArea">Update Writing Content</label></span>
+						<textarea id="writingTextArea" rows="24" ng-model="writing.content" name="writingTextArea"></textarea>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+	

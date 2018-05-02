@@ -1,0 +1,40 @@
+
+	<!-- this is for each object in list 
+	<div ng-repeat="c in calendarObjects">
+		<div class="month">
+			<ul>
+				<li class="prev"><a ng-click="changeCalendarObject(prev)" href>&#10094;</a></li>
+				<li class="next"><a ng-click="changeCalendarObject(next)" href>&#10095;</a></li>
+				<li>
+					<span>{{ c.month }}</span><br>
+					<span style="font-size:18px">{{ c.year }}</span>
+				</li>
+			</ul>
+		</div>
+		
+		<table class="cal">
+			<tr>
+				<th ng-repeat="day in c.days">{{ day }}</th>
+			</tr>
+			<tr ng-repeat="w in c.weeks">
+				<td ng-repeat="d in w">{{ d.wordcount }}</td>
+			</tr>
+		</table>
+		-->
+		
+		<!-- this is for current only -->
+		
+		<div class="panel-heading">
+			<span>{{ calendarObjects[current].month }} {{ calendarObjects[current].year }}</span>
+		</div>
+			
+		<div class="panel-body">
+			<table class="cal">
+				<tr>
+					<th style="background: rgb(226, 158, 169);" ng-repeat="day in calendarObjects[current].days">{{ day }}</th>
+				</tr>
+				<tr ng-repeat="w in calendarObjects[current].weeks">
+					<td ng-repeat="d in w">{{ d.wordcount }}</td>
+				</tr>
+			</table>	
+		</div>

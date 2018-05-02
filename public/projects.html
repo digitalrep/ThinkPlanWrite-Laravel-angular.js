@@ -1,0 +1,321 @@
+
+	<div class="container-fluid dash">
+	
+		<div class="loader_container" ng-show="loading" alt="page still loading">
+			<div class="loader" ng-show="loading"></div>
+		</div>
+	
+		<!-- Project Details -->
+		
+		<div class="col-lg-4 col-sm-4 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-yellow">
+				<div class="panel-body">
+					<img src="images/streak.png" alt="streak calendar">
+					<span class="stat-number"><span ng-bind="project.created_at | myDateFormat"></span>
+					<h5>Creation Date</h5>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-sm-4 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-blue">
+				<div class="panel-body">
+					<img src="images/average.png" alt="average bar graph">
+					<span class="stat-number">{{ project.wordcount }}</span>
+					<h5>Words in Length</h5>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-sm-4 col-xs-12 stat">
+			<div class="panel panel-default panel-stat panel-orange">
+				<div class="panel-body">
+					<img src="images/drought.png" alt="drought calendar">
+					<span class="stat-number"><span ng-bind="project.updated_at | myDateFormat"></span>
+					<h5>Last Updated</h5>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Project Data -->
+			
+		<div class="col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+		
+			<div class="panel panel-default">	
+				
+				<div class="panel-heading border-top">
+					<div style="position: relative;">
+						<form name="updateProj">
+							<label for="projectTitle" class="proj">Update Project Title</label>
+							<span class="project-title"><input type="text" class="form-control" ng-model="project.title" name="projectTitle" id="projectTitle" /></span>
+							<button class="btn btn-info update-project" ng-click="updateProject(project)" type="submit" ng-disabled="updateProj.projectTitle.$invalid">Update Title</button>
+						</form>
+						<div class="error" ng-show="updateProj.projectTitle.$touched && updateProj.projectTitle.$invalid">Title is required</div>
+					</div>
+				</div>
+			
+			</div>		
+		
+			<!-- Plotpoints -->
+			<!--
+			<div class="panel panel-default">
+					
+				<div class="panel-heading" style="overflow: auto;">
+					<div class="pull-left">Plotpoints</div>
+					<div class="pull-right"><a href ng-click="addPlotpoint()">Add</a></div>
+				</div>
+				
+				<div class="panel-body">
+				-->
+
+				
+				<!--
+
+					<div class="row">
+						
+						<ul ui-sortable="sortableOptions" ng-model="plotpoints" class="plotpoints_list col-sm-12">
+
+							<li ng-repeat="p in plotpoints track by $index">
+								<div class="panel panel-default plot">
+									<div class="panel-heading">
+										<img src="images/sort-arrows.png" class="sort" />
+										<input ng-model="p.title" type="text" id="pptitle" name="title" autocomplete="off"></input>
+									</div>
+									<div class="panel-body">
+										<textarea rows=4 id="ppdesc" name="description" ng-model="p.description">
+											{{ p.description }}
+										</textarea>
+									</div>
+									<div class="panel-footer" style="overflow: auto;">
+										<div class="pull-left"><a href ng-click="updatePlotpoint(p)">Update</a></div>
+										<div class="pull-right"><a href ng-click="deletePlotpoint(p)">Delete</a></div>
+									</div>
+								</div>
+							</li>
+						
+						</ul>	
+
+					</div>
+				
+				</div>
+					
+			</div>
+			
+			<!-- Characters -->
+					
+			<div class="panel panel-default">
+					
+				<div class="panel-heading" style="overflow: auto;">
+					<div class="pull-left">Characters</div>
+					<div class="pull-right"><a href ng-click="addCharacter()">Add</a></div>
+				</div>	
+					
+				<div class="panel-body">			
+						
+					<div ng-repeat="char in characters track by $index">
+					
+						<div class="plot panel panel-default col-sm-4 col-lg-3 col-xs-12 plotpoint_object">
+							<div class="panel-heading exchar">
+								<input  ng-model="char.name" type="text" id="chartitle" name="title" autocomplete="off" />
+								<div class="row">
+								<div class="col-sm-6 char_gender">
+									<select id="chargender" class="form-control" name="gender" 
+										ng-options="g for g in genders" 
+										ng-model="char.gender">
+									</select>
+								</div>
+								<div class="col-sm-6 char_age">
+									<input id="charage" class="form-control" name="age" type="number" min="1" step="1" ng-model="char.age" />
+								</div>
+							</div>
+							</div>
+							<div class="panel-body">
+								<textarea id="newchardesc" name="description" ng-model="char.bio">
+									{{ char.bio }}
+								</textarea>
+							</div>
+							<div class="panel-footer" style="overflow: auto;">
+								<div class="btn-group pull-left"><a href ng-click="updateCharacter(char)">Update</a></div>
+								<div class="btn-group pull-right"><a href ng-click="deleteCharacter(char)">Delete</a></div>
+							</div>
+						</div>
+					
+					</div>			
+						
+				</div>
+
+			</div>
+			
+		<!-- List of Writings -->
+			<!--	
+			<div class="col-sm-offset-0 col-sm-12 col-xs-offset-0 col-xs-12">
+				<div class="panel panel-default">	
+					
+					<div class="panel-heading border-top">
+						<div class="project-details">
+							<div class="rel">
+								<span class="project-title">
+									<span class="sr-only"><label for="projectTitle">Update Project Title</label></span>
+									<input type="text" ng-model="project.title" name="projectTitle" id="projectTitle" />
+								</span>
+								<button class="btn btn-info update-project" ng-click="updateProject(project)">Update Title</button>
+							</div>
+						</div>
+					</div>
+						
+					<div class="panel-heading writing_header">
+						<div class="filler"></div>
+						<span class="writing_title">Title</span>
+						<span class="writing_del_count writing_count opt">Wordcount</span>
+						<span class="writing_content opt">Content</span>
+						<span class="writing_date opt">Created at</span>
+						<span class="writing_date opt">Updated at</span>
+						<span class="writing_del_count writing_del"></span>
+					</div>
+						
+					<ul ui-sortable="sortableOptions" ng-model="writings" class="writings_list">
+						<li ng-repeat="w in writings track by $index" ng-class="{ stripe: $index % 2 == 1 }">
+							<span class="pull-left glyphicon glyphicon-move myHandle"></span>
+							<span class="writing_title"><a href="/#/writing/{{ w.id }}">{{ w.title }}</a></span>
+							<span class="writing_del_count writing_count">{{ w.wordcount }}</span>
+							<span class="writing_content">{{ w.content | truncateContent }}</span>
+							<span class="writing_date opt">{{ w.created_at | myDateFormat }}</span>
+							<span class="writing_date opt">{{ w.updated_at | myDateFormat }}</span>
+							<span class="writing_del_count writing_del"><a href ng-click="deleteWriting(w)">Delete</a></span>
+						</li>
+					</ul>
+						
+					<div class="panel-footer border-bottom">
+						<div style="position: relative;">
+							<span class="sr-only"><label for="newWriting">New Writing Title</label></span>
+							<span class="project-title"><input type="text" name="title" autocomplete="off" ng-model="writing1.title" name="newWriting" id="newWriting" /></span>
+							<button class="btn btn-info update-project" ng-click="addWriting(writing1)">New Writing</button>
+						</div>
+					</div>
+					
+				</div>	
+			</div>
+			-->
+
+		
+			<!-- Plotpoints -->
+			
+			<div class="panel panel-default">
+					
+				<div class="panel-heading" style="overflow: auto;">
+					<div class="pull-left">Plotpoints</div>
+					<div class="pull-right"><a href ng-click="addPlotpoint()">Add</a></div>
+				</div>
+				
+				<div class="panel-body">
+		
+					<div id="grid-container" class="container-fluid">
+						<div class="row">
+							<div class="col-md-3 grid-column" data-as-sortable="dragControlListeners" ng-model="plots.p1">
+								<div ng-repeat="p in plots.p1" as-sortable-item>
+									<div class="panel panel-default" as-sortable-item-handle>
+										<div class="panel-heading">
+											<img src="images/sort-arrows.png" class="sort" />
+											<input ng-model="p.title" type="text" id="pptitle" name="title" autocomplete="off"></input>
+										</div>
+										<div class="panel-body">
+											<textarea rows=4 id="ppdesc" name="description" ng-model="p.description">
+												{{ p.description }}
+											</textarea>
+										</div>
+										<div class="panel-footer" style="overflow: auto;">
+											<div class="pull-left"><a href ng-click="updatePlotpoint(p)">Update</a></div>
+											<div class="pull-right"><a href ng-click="deletePlotpoint(p)">Delete</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 grid-column" as-sortable="asSortableOptions" data-ng-model="plots.p2">
+								<div ng-repeat="p in plots.p2" as-sortable-item>
+									<div class="panel panel-default" as-sortable-item-handle>
+										<div class="panel-heading">
+											<img src="images/sort-arrows.png" class="sort" />
+											<input ng-model="p.title" type="text" id="pptitle" name="title" autocomplete="off"></input>
+										</div>
+										<div class="panel-body">
+											<textarea rows=4 id="ppdesc" name="description" ng-model="p.description">
+												{{ p.description }}
+											</textarea>
+										</div>
+										<div class="panel-footer" style="overflow: auto;">
+											<div class="pull-left"><a href ng-click="updatePlotpoint(p)">Update</a></div>
+											<div class="pull-right"><a href ng-click="deletePlotpoint(p)">Delete</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 grid-column" as-sortable="asSortableOptions" data-ng-model="plots.p3">
+								<div ng-repeat="p in plots.p3" as-sortable-item>
+									<div class="panel panel-default" as-sortable-item-handle>
+										<div class="panel-heading">
+											<img src="images/sort-arrows.png" class="sort" />
+											<input ng-model="p.title" type="text" id="pptitle" name="title" autocomplete="off"></input>
+										</div>
+										<div class="panel-body">
+											<textarea rows=4 id="ppdesc" name="description" ng-model="p.description">
+												{{ p.description }}
+											</textarea>
+										</div>
+										<div class="panel-footer" style="overflow: auto;">
+											<div class="pull-left"><a href ng-click="updatePlotpoint(p)">Update</a></div>
+											<div class="pull-right"><a href ng-click="deletePlotpoint(p)">Delete</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 grid-column" as-sortable="asSortableOptions" data-ng-model="plots.p4">
+								<div ng-repeat="p in plots.p4" as-sortable-item>
+									<div class="panel panel-default" as-sortable-item-handle>
+										<div class="panel-heading">
+											<img src="images/sort-arrows.png" class="sort" />
+											<input ng-model="p.title" type="text" id="pptitle" name="title" autocomplete="off"></input>
+										</div>
+										<div class="panel-body">
+											<textarea rows=4 id="ppdesc" name="description" ng-model="p.description">
+												{{ p.description }}
+											</textarea>
+										</div>
+										<div class="panel-footer" style="overflow: auto;">
+											<div class="pull-left"><a href ng-click="updatePlotpoint(p)">Update</a></div>
+											<div class="pull-right"><a href ng-click="deletePlotpoint(p)">Delete</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--
+							<div class="col-md-3 grid-column" as-sortable="asSortableOptions" data-ng-model="plots.p2">
+								<div ng-repeat="p in plots.p2 track by $index" as-sortable-item>
+									<div as-sortable-item-handle>
+										{{ p.description }}
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 grid-column" as-sortable="asSortableOptions" data-ng-model="plots.p3">
+								<div ng-repeat="p in plots.p3 track by $index" as-sortable-item>
+									<div as-sortable-item-handle>
+										{{ p.description }}
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 grid-column" as-sortable="asSortableOptions" data-ng-model="plots.p4">
+								<div ng-repeat="p in plots.p4 track by $index" as-sortable-item>
+									<div as-sortable-item-handle>
+										{{ p.description }}
+									</div>
+								</div>
+							</div>
+						</div>
+						-->
+					</div>
+					
+				</div>
+				
+			</div>
+			<div class="panel-footer" style="overflow: auto;">
+				<div class="btn-group pull-right"><a href ng-click="update()">Apply</a></div>
+			</div>
+			
+	</div>

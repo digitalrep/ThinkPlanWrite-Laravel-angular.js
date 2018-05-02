@@ -1,0 +1,46 @@
+
+	<div class="row">
+		<div class="col-sm-12 page">
+		
+			<div class="col-sm-4 col-sm-offset-4">
+			
+				<h1>Reset my Password</h1>
+				
+					<div class="alert alert-danger" role="alert" ng-show="showNomatchError">
+						<span class="sr-only">Error:</span>
+						Email Address fields don't match
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showEmailValidationError">
+						<span class="sr-only">Error:</span>
+						Please provide a valid email address.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showNoEmailError">
+						<span class="sr-only">Error:</span>
+						Unable to send the password reset email to your email address.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showUnknownError">
+						<span class="sr-only">Error:</span>
+						Unable to reset your password. Please try again later.
+					</div>
+					<div class="alert alert-info" role="alert" ng-show="done">
+						<span class="sr-only">Success:</span>
+						<p>Your password was reset.</p>
+					</div>
+					
+					<p><a ui-sref="login">Click here to login</a>.</p>
+					
+					<p>Enter your new password.</p>
+					
+					<p>&nbsp;</p>
+					
+					<p><span class="sr-only"><label for="newPassword">New Password</label></span><input class="form-control" type="password" class="txt" placeholder="New Password" ng-model="user.password1" name="newPassword" id="newPassword"></p>
+					
+					<p><span class="sr-only"><label for="passwordConfirmation">Password Confirmation</label></span><input class="form-control" type="password" class="txt" placeholder="Confirm New Password" ng-model="user.password2" name="passwordConfirmation" id="passwordConfirmation"></p>
+					
+					<p><input type="submit" id="_submit" value="Reset" class="btn-info" ng-click="reset(user)" /></p>
+							
+			</div>
+					
+		</div>
+	</div>
+		

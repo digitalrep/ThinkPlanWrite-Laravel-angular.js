@@ -1,0 +1,33 @@
+.projects {
+	width: 100%;
+	overflow: visible;
+	display: inline;
+}
+.writing-entry {
+	padding: 15px;
+	font-size: 14px;
+	line-height: 2;
+	overflow: visible;
+}
+.writing-content {
+	height: 12200px;
+	overflow: visible;
+}
+.writing-entry a.sav,
+.writing-entry a.del,
+.writing-entry a.print,
+.writing-updated, 
+.writing-wordcount {
+	display: none;
+}
+.writing-entry input {
+	border: 0;
+	padding: 0;
+	font-weight: bold;
+	font-size: 16px;
+}
+.writinglist-heading,
+.writing-header {
+	background: #fff;
+	margin: 0;
+}

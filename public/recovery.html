@@ -1,0 +1,52 @@
+
+	<div class="row">
+		<div class="col-sm-12 page">
+		
+			<div class="col-sm-4 col-sm-offset-4">
+			
+				<h1>Reset my Password</h1>
+				
+					<div class="alert alert-danger" role="alert" ng-show="showUnknownError">
+						<span class="sr-only">Error:</span>
+						Email address not found.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showEmailValidationError">
+						<span class="sr-only">Error:</span>
+						Please provide a valid email address.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showNoEmailError">
+						<span class="sr-only">Error:</span>
+						Unable to send the password reset email to your email address.
+					</div>
+					<div class="alert alert-info" role="alert" ng-show="done">
+						<span class="sr-only">Success:</span>
+						The password reset email was sent to your email address.
+					</div>
+					
+					<p>An email with a link that will allow you to reset your password will be sent to your email address.</p>
+					
+					<p>&nbsp;</p>
+					
+					<p><span class="sr-only"><label for="email">Email</label></span><input type="text" class="txt" placeholder="Email Address" ng-model="user.email" name="email" id="email"></p>
+					
+					<p><input class="form-control" type="submit" id="_submit" value="Send Email" class="btn-info" ng-click="recover(user)" /></p>
+							
+			</div>
+					
+		</div>
+	</div>
+	<div class="row footer">
+		<div class="col-md-12">
+			<span>ThinkPlanWrite</span>
+		</div>
+		<div class="col-md-12">
+			<ul>
+				<li><a class="home" href="/#/privacy">Privacy Policy</a></li>
+				<li><a class="home" href="/#/terms">Terms of Use</a></li>
+			</ul>
+		</div>
+		<div class="col-md-12 footer-last">
+			<center>Copyright &copy; DigitalRep - All Rights Reserved</center>
+		</div>
+	</div>
+		

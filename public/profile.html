@@ -1,0 +1,15 @@
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-12 page">
+				<h1>Your Profile</h1>
+				<p>Name: {{ user.name }}</p>
+				<p>Email: {{ user.email }}</p>
+				<p>Joined: <span ng-bind="user.created_at | myDateFormat"></span></p>
+				<p>&nbsp;</p>
+				<p><a href ng-click="deleteAccount()">Delete Account</a></p>
+				<p>Warning: all associated writings and projects will be deleted and cannot be recovered.</p>
+			</div>
+		</div>
+	
+	</div>

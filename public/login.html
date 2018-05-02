@@ -1,0 +1,46 @@
+
+	<div class="row">
+		<div class="col-sm-12 page">
+		
+			<div class="col-sm-4 col-sm-offset-4">
+			
+			<h1>Sign in to Think Plan Write</h1>
+
+					<div class="alert alert-danger" role="alert" ng-show="showValidationError">
+						<span class="sr-only">Error:</span>
+						Please provide a valid email address and password.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showError">
+						<span class="sr-only">Error:</span>
+						There was a problem signing you in. Please try again.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showRateError">
+						<span class="sr-only">Error:</span>
+						You have exceeded the number of login attempts allowed in a 5 minute period.
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showNoUserError">
+						<span class="sr-only">Error:</span>
+						Can't find that email address. Are you sure you've resgistered with this website?
+					</div>
+					<div class="alert alert-danger" role="alert" ng-show="showNoUserError">
+						<span class="sr-only">Error:</span>
+						There has been an unexpected internal error. Please try again later.
+					</div>
+					
+					<form>
+					<p><span class="sr-only"><label for="email">Email</label></span><input class="form-control" type="text" class="txt" placeholder="Email" ng-model="user.email" name="email" id="email"></p>
+					<p><span class="sr-only"><label for="password">Password</label></span><input class="form-control" type="password" class="txt" placeholder="Password" ng-model="user.password" name="password" id="password"></p>
+			
+					<p><input type="submit" id="_submit" value="Login" class="btn-info" ng-click="login(user)"/></p>
+					</form>
+					
+					<p>&nbsp;</p>
+					<p>Don't have an account? <a ui-sref="register">Register</a> </p>
+		
+					<p>Forgotten your password? <a ui-sref="recovery">Request a reset</a> </p>
+					
+			</div>
+					
+		</div>
+	</div>
+		
